@@ -1,0 +1,145 @@
+Channel name: grimoirelab-gsoc
+Participants: k.a.rashmi04, evamillan, mafesan, venuvardhanreddytekul
+________________________________________________________________________________________________
+18:57:38 - k.a.rashmi04: @k.a.rashmi04 has joined the channel
+18:57:46 - evamillan: @evamillan has joined the channel
+18:57:56 - mafesan: @mafesan has joined the channel
+19:00:34 - venuvardhanreddytekul: Hello everyone
+19:00:35 - k.a.rashmi04: Hi everyone :slightly_smiling_face:
+19:00:54 - mafesan: Hi there! :wave:
+19:01:02 - evamillan: Hi!
+19:01:19 - venuvardhanreddytekul: I hope everyone is here
+19:01:35 - venuvardhanreddytekul: Santi might not join as he is on leave, so I think we can start the meeting
+19:02:01 - mafesan: Sure! Are we having the call on Google Meet? Or via Slack?
+19:02:26 - venuvardhanreddytekul: Can we do it via chat?
+19:02:36 - venuvardhanreddytekul: on slack
+19:03:07 - mafesan: Ok, as you wish
+19:03:17 - k.a.rashmi04: works for me!
+19:03:39 - venuvardhanreddytekul: In this way, we can have the chat logs
+19:04:04 - venuvardhanreddytekul: so that we can share the it with others if needed (Santi can read the logs and keep himself updated too)
+19:04:38 - venuvardhanreddytekul: In future meeting, we can do it via call if there is something to show
+19:04:47 - venuvardhanreddytekul: or some demo
+19:05:01 - venuvardhanreddytekul: I hope it is fine
+19:05:35 - venuvardhanreddytekul: okay, I think we can get started with the meeting
+19:06:04 - venuvardhanreddytekul: first of all, congrats @k.a.rashmi04 for getting selected for GSoC 2021
+19:06:16 - venuvardhanreddytekul: we are happy to have you on board :smile:
+19:06:47 - k.a.rashmi04: thank you @venuvardhanreddytekul!! Am really excited about this project !!
+19:07:58 - k.a.rashmi04: Perhaps to kick off, let me first share the proposal document's link
+19:08:12 - venuvardhanreddytekul: Yup, that would be great
+19:08:18 - k.a.rashmi04: <https://docs.google.com/document/d/1oUd-G-N4VXh77FRI4PTSWJHoVxGt2WZDNu7JwuFMbW4/edit?usp=sharing> This is the one, I'll also enable comments access for all of you
+19:08:43 - venuvardhanreddytekul: we want to talk about a few things in the proposal too
+19:08:59 - venuvardhanreddytekul: we will get to it
+19:09:25 - venuvardhanreddytekul: so, right now it is community bonding period
+19:10:22 - venuvardhanreddytekul: usually the students work with the mentors on setting up communication means and other things that are required for the project
+19:10:58 - venuvardhanreddytekul: So, @k.a.rashmi04 it would be great if you can create a project tracker (can be a repo on github)
+19:11:38 - venuvardhanreddytekul: where you store all the information (meeting logs, work reports, asking doubts on issues, etc.) related to the project
+19:12:10 - venuvardhanreddytekul: from my personal experience, this is gonna really help during the final evaluation
+19:12:25 - venuvardhanreddytekul: for writing the final summary/report of the project
+19:12:48 - k.a.rashmi04: yes, that sounds great! I can set that up.
+19:13:32 - venuvardhanreddytekul: you can create issues as tasks and we can create a project board to track the tasks
+19:13:41 - venuvardhanreddytekul: something like this <https://github.com/vchrombie/gsoc/projects/1>
+19:14:26 - venuvardhanreddytekul: excuse me for keeping some issues pending, I couldn't complete some things after GSoC due to some reasons :sweat_smile:
+19:14:47 - venuvardhanreddytekul: but yeah I hope you got the idea what I was saying :smile:
+19:15:21 - k.a.rashmi04: yes, I did! I'll take it as an action item to set this repo up and share the link with you all
+19:16:02 - venuvardhanreddytekul: that's great to hear! :+1:
+19:16:45 - k.a.rashmi04: Is everyone ok with using this slack channel as the primary means of communication?
+19:17:48 - k.a.rashmi04: I know @venuvardhanreddytekul mentioned this in the email thread but just double checking
+19:18:43 - venuvardhanreddytekul: We can use this space for off-sync communication as well as for such weekly meetings too
+What do you all think?
+19:18:59 - mafesan: Yes, I agree! I would strongly recommend using threads if we are starting a conversation about a particular topic (i.e. a question or an issue)
+19:20:16 - venuvardhanreddytekul: Yup, that's a good idea
+19:20:19 - k.a.rashmi04: sounds good
+19:21:05 - venuvardhanreddytekul: We can see if we can export the chat to create meeting logs (maybe by using perceval)
+19:23:54 - mafesan: As we are in the community bonding period, I would like to post some useful links for @k.a.rashmi04 :
+• <https://handbook.chaoss.community/community-handbook/|CHAOSS Community Handbook>
+• <https://chaoss.github.io/grimoirelab-tutorial/|GrimoireLab Tutorial> (please have a look at <https://chaoss.github.io/grimoirelab-tutorial/contributing.html#dco-and-sign-off-for-contributions|this section> about how to sign commits)
+• <https://chris.beams.io/posts/git-commit/|This article> about "How to write good, meaningful commit messages"
+19:23:57 - k.a.rashmi04: Great, I got the script already working for regular messages using Perceval
+19:24:06 - k.a.rashmi04: I'll need to check if it works for threads.
+19:24:49 - k.a.rashmi04: Sure, thanks @mafesan
+19:25:03 - venuvardhanreddytekul: that's great, we can find a hack since we have the basic script
+19:25:19 - venuvardhanreddytekul: that's a great resource, thanks @mafesan
+19:25:38 - venuvardhanreddytekul: okay, we will move on to the next action item
+19:26:41 - venuvardhanreddytekul: we can have regular meeting (preferably weekly once)
+where we discuss about the work, blockers, what to focus on next week, etc.
+19:26:59 - venuvardhanreddytekul: Do you think same timings and day work for you
+19:27:34 - venuvardhanreddytekul: if not, we can try scheduling it to Friday or something which is good for everyone
+19:28:04 - venuvardhanreddytekul: @k.a.rashmi04 @evamillan @mafesan
+what do you prefer?
+19:28:46 - k.a.rashmi04: This works for me, yeah
+19:28:56 - k.a.rashmi04: But I will leave it to y'all to decide
+19:28:58 - evamillan: works for me too
+19:29:23 - k.a.rashmi04: I am available at this time any day, if someone wants to do the sync up on any another day
+19:30:07 - mafesan: It works for me too
+19:30:27 - mafesan: (Unless there is an unexpected meeting I have to attend to :sweat_smile: )
+19:31:36 - venuvardhanreddytekul: that's completely fine @mafesan, no worries
+you might have surprise meetings :smile:
+we can try to reschedule or find something in such cases
+19:31:52 - venuvardhanreddytekul: okay, we can fix the meeting times then
+19:32:56 - venuvardhanreddytekul: We will meet at 15:30 to 16:30 CEST (19:00 to 20:00 IST) every Saturday.
+19:33:20 - evamillan: saturday?
+19:33:40 - venuvardhanreddytekul: Oops, my mistake
+19:34:13 - venuvardhanreddytekul: We will meet at 15:30 to 16:30 CEST (19:00 to 20:00 IST) every Monday here at #grimoirelab-gsoc
+19:34:36 - k.a.rashmi04: Great
+19:34:48 - venuvardhanreddytekul: im sorry, my bad
+im always craving for weekends :stuck_out_tongue:
+19:35:51 - venuvardhanreddytekul: next in communications
+@k.a.rashmi04 how do you want to communicate with CHAOSS Community?
+19:36:38 - venuvardhanreddytekul: It is important to send updates to the CHAOSS Community
+19:37:19 - venuvardhanreddytekul: either by joining weekly calls or writing to the mailing list or by opening issue in chaoss/grimoirelab for sending updates
+19:37:26 - venuvardhanreddytekul: what do you prefer?
+19:37:50 - k.a.rashmi04: Is there a way you recommend? I have joined the weekly calls in the past, I would love to continue doing that
+19:38:32 - k.a.rashmi04: But opening an issue would also enable me to put it on record so I am a bit stumped
+19:39:28 - venuvardhanreddytekul: the weekly meetings are a good place but I would suggest writing to the mailing list too (maybe bi-weekly) or you can attach your reports to the email
+19:40:00 - venuvardhanreddytekul: because there could be people who might not join the calls but read the emails
+19:40:30 - k.a.rashmi04: That works too, I will do a biweekly update to the chaoss community mailing list on my progress so far
+19:41:22 - venuvardhanreddytekul: that's great!
+19:42:02 - venuvardhanreddytekul: one thing I forgot during the project tracker point, it would be great if you can write small reports too which explains the work you did each period time
+19:42:19 - venuvardhanreddytekul: it can weekly or bi-weekly, as you prefer
+19:42:47 - venuvardhanreddytekul: you can publish them as blog posts or maintain md files in the project tracker
+19:43:04 - venuvardhanreddytekul: it is up to your choice, feel free to decide
+19:43:55 - k.a.rashmi04: Ok sure, I'll make sure I do that :smiley:
+19:44:53 - venuvardhanreddytekul: awesome then!
+19:45:49 - venuvardhanreddytekul: I think I'm done with the discussion about project tracker and communication means.
+@k.a.rashmi04 do you have any doubts or anything to say?
+19:46:19 - k.a.rashmi04: Nothing as of now, I'll reach out if I have anything
+19:46:32 - venuvardhanreddytekul: great!
+19:46:38 - k.a.rashmi04: And I will put up the links to everything once I set it all up
+19:46:53 - venuvardhanreddytekul: we can move on to discussing the proposal now
+19:47:18 - venuvardhanreddytekul: we had a few comments over the implementation of the project
+19:47:30 - venuvardhanreddytekul: @mafesan do you want to explain more about it?
+19:48:39 - mafesan: Sure!
+19:51:19 - mafesan: About the proposal, we think it could be a good idea to look for other ways to store the information and the data structure to be implemented
+19:52:49 - mafesan: To having a better understanding of the problem we want to solve, I think we should share experiences and talk about real examples we should cover
+19:53:38 - mafesan: Starting from there, I think it will be easier to think about the data structures to define and how to store them
+19:55:57 - mafesan: For instance, there could be some discussions around how to consider organization aliases and how to consider other structures under organizations, such sub-groups
+19:57:27 - mafesan: About the implementation process we follow, we think it is important to mention that every change and new feature that is submitted includes the corresponding unit tests
+19:58:56 - mafesan: This means you should make some adjustments on your proposed schedule, as the unit tests are not going to be part of a separate period or set of tasks, but included in every change or new feature
+19:59:20 - k.a.rashmi04: That makes sense, I'll take note of that
+19:59:31 - mafesan: Great! :smile:
+20:00:03 - mafesan: @venuvardhanreddytekul, @evamillan, am I missing something?
+20:00:38 - k.a.rashmi04: And also, as for the real-world examples, that would really help because my current understanding of the organization model is based off hypothetical organizations that I considered as examples:slightly_smiling_face:
+20:02:20 - mafesan: Sure! There are some interesting cases to check and to learn from, and also room for new approaches and needs
+20:03:55 - venuvardhanreddytekul: &gt; For instance, there could be some discussions around how to consider organization aliases and how to consider other structures under organizations, such sub-groups
+do you think opening an issue in the sortinghat repo would be a good start for the discussion?
+20:04:00 - k.a.rashmi04: great! would we be discussing more about this proposal in the next weekly syncup we have?
+20:04:24 - k.a.rashmi04: yes, that works too since the original issue is closed
+20:04:32 - k.a.rashmi04: I can do that if you prefer that
+20:04:46 - mafesan: Sure! But first I would have to review if there is already a issue about this (or maybe on SortingHat),
+20:05:16 - mafesan: We can create that issue anyway and then link it to the other one if that's the case
+20:05:34 - k.a.rashmi04: sure
+20:07:45 - venuvardhanreddytekul: awesome, thanks for explaining @mafesan
+20:08:12 - venuvardhanreddytekul: I think we have covered everything on the agenda today
+20:08:40 - venuvardhanreddytekul: do you think have anything more to discuss?
+@mafesan @evamillan
+20:09:25 - venuvardhanreddytekul: @k.a.rashmi04, please let us know if you have anything
+20:09:32 - mafesan: Not from my side!
+20:09:39 - evamillan: I think that's all for now
+20:09:54 - k.a.rashmi04: I am good :slightly_smiling_face:
+20:11:21 - venuvardhanreddytekul: we can use this group for off-sync communication (we can use threads regarding the doubts)
+20:12:01 - venuvardhanreddytekul: awesome! I think there is anything more to discuss so, we can meet next week then :+1:
+20:12:16 - venuvardhanreddytekul: bye everyone, stay safe :wave:
+20:12:45 - k.a.rashmi04: thank you everyone :slightly_smiling_face: goodbye and good day!
+20:12:46 - mafesan: Thank you all! Take care and once again, welcome on board @k.a.rashmi04!
+20:15:08 - evamillan: Welcome @k.a.rashmi04! Feel free to reach us here if you need anything
+20:17:28 - k.a.rashmi04: Thank you @mafesan @evamillan !
