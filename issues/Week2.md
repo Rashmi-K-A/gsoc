@@ -5,6 +5,7 @@ https://github.com/Rashmi-K-A/gsoc/issues/1
 
 - [Setting up](https://github.com/Rashmi-K-A/gsoc/blob/main/issues/Week2.md#work-done)
 - [Answering questions](https://github.com/Rashmi-K-A/gsoc/blob/main/issues/Week2.md#questions)
+- [Help needed](https://github.com/Rashmi-K-A/gsoc/blob/main/issues/Week2.md#help)
 ### Work done
 
 1. Start by creating a new individual. This individual will have a profile and can have at least two identities.
@@ -267,7 +268,7 @@ https://github.com/Rashmi-K-A/gsoc/issues/1
       - The affiliation information is linked between the Individual model and an Organization and not the profile of the individual
 
 
-Help needed:
+### Help
 
 1. I need more understanding of the fields in Enroll:
     
