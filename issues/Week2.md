@@ -3,6 +3,8 @@
 https://github.com/Rashmi-K-A/gsoc/issues/1
 
 
+- [Setting up](https://github.com/Rashmi-K-A/gsoc/blob/main/issues/Week2.md#work-done)
+- [Answering questions](https://github.com/Rashmi-K-A/gsoc/blob/main/issues/Week2.md#questions)
 ### Work done
 
 1. Start by creating a new individual. This individual will have a profile and can have at least two identities.
@@ -252,7 +254,7 @@ https://github.com/Rashmi-K-A/gsoc/issues/1
 
 
 
-Questions:
+### Questions
 1. Can a given organization have more than one domain?
       - Yes, it can
 2.  Can a given individual be enrolled to many organizations?
