@@ -1,0 +1,49 @@
+Channel name: grimoirelab-gsoc
+Participants: Rashmi K A, vchrombie, Eva Millán, mafesan
+________________________________________________________________________________________________
+19:00:34 - Rashmi K A: Hi everyone! <!here>
+19:00:44 - Eva Millán: Hi!
+19:00:51 - mafesan: Hi there!
+19:01:16 - vchrombie: Hello! Hope you all are doing great. :slightly_smiling_face:
+19:01:48 - Rashmi K A: Yes!! Hope everyone else is good too :slightly_smiling_face:
+19:01:54 - Rashmi K A: Shall we get started?
+19:02:11 - vchrombie: Yes, I think we can start the meeting.
+19:02:26 - vchrombie: @Rashmi K A do you have any updates from the last week?
+19:02:38 - Rashmi K A: Yes, I do
+19:02:58 - vchrombie: Great, you can start with that.
+19:03:26 - Rashmi K A: I created this ticket as we discussed to track our progress for understanding and evaluating how we can store the  information around Organizations - <https://github.com/chaoss/grimoirelab-sortinghat/issues/541>
+19:04:50 - Rashmi K A: I have also created a project tracker repository which can track my overall progress as well as hold any notes and logged slack chats that we have  - <https://github.com/Rashmi-K-A/gsoc>
+19:05:36 - Rashmi K A: I have created a project board in this one - there arent any tasks just yet
+19:05:52 - Rashmi K A: Thats about all the updates I have
+19:06:10 - mafesan: Oh yes, I accepted the invitation!
+19:06:50 - Rashmi K A: Oh, and I also am continuing to attend the community meetings on Tuesday
+19:08:54 - mafesan: I don't know how familiar you are with SortingHat, but I think it would be a good first step to test the different commands and options SortingHat has
+19:09:37 - mafesan: Remember we will be working with the version which is currently under `muggle` branch
+19:10:55 - Rashmi K A: I have worked on SortingHat as part of the microtasks that were required - I think I havent used the CLI as much as the graphQL endpoint though
+19:13:22 - mafesan: Let's set an example:
+19:20:05 - mafesan: Then, I would try to answer the following questions:
+• Can a given organization have more than one domain?
+• Can a given individual be enrolled to many organizations? 
+    ◦ What about overlapping date ranges?
+• Can we have the same domain linked to different organizations?
+    ◦ E.g. `<http://ibm.com|ibm.com>` belonging to organization `IBM` and organization `IBM, Inc.` 
+• Is the affiliation information from a given individual related with its `Profile?`
+19:25:16 - Rashmi K A: sure, let me try this out. Do I do this right away or after this chat, would you like the discuss anything else?
+19:26:52 - mafesan: Take your time and don't hesitate to contact us if you have any doubt! I can post this on the GitHub issue if you want
+19:36:58 - mafesan: Done! <https://github.com/Rashmi-K-A/gsoc/issues/1>
+19:39:36 - mafesan: Great! I think after working on this, we all will be more ready for further discussions about what can we improve, the cases we would like to cover, how to introduce other scenarios into the model, etc.
+19:39:50 - Rashmi K A: Sure
+19:42:18 - vchrombie: Thanks @mafesan for setting this up.
+19:43:13 - mafesan: You are welcome! :smile:
+19:43:18 - vchrombie: @Rashmi K A do you have any other updates or questions for us?
+19:44:37 - Rashmi K A: No, I think I will probably have some as I work on this issue though
+19:44:48 - Rashmi K A: I'll reach out if anything comes up
+19:46:33 - vchrombie: We have one more week left for the coding period, I think we can use this week to work on the remaining tasks in this issue
+<https://github.com/chaoss/grimoirelab-sortinghat/issues/541>
+19:52:44 - vchrombie: I think I don't have anything to talk more about.
+19:53:01 - vchrombie: Let us know if you have anything else we can close the meeting for today
+19:56:49 - mafesan: Let's close the meeting for today :rocket:
+Thank you all!
+19:58:10 - Eva Millán: Thanks everyone!
+19:58:16 - vchrombie: Thank everyone for attending the meeting, see you next week again.
+20:33:22 - Rashmi K A: Sorry everyone, my network here went down and I couldn't send any messages. I will talk to you all next week :slightly_smiling_face:
