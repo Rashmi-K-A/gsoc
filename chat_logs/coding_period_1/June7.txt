@@ -1,0 +1,82 @@
+Channel name: grimoirelab-gsoc
+Participants: Rashmi K A, Santiago Dueñas, Eva Millán, mafesan, vchrombie
+________________________________________________________________________________________________
+19:02:16 - Rashmi K A: hi everyone!
+19:02:19 - Eva Millán: hi everyone!
+19:02:40 - mafesan: Hi there!
+19:03:35 - Santiago Dueñas: hi!
+19:04:05 - vchrombie: Hello everyone
+19:04:17 - Rashmi K A: Alright, lets get started, I think everyone's here
+19:04:42 - vchrombie: Yup, thanks Rashmi
+19:04:44 - Rashmi K A: Shall I start with my updates?
+19:06:19 - Rashmi K A: @mafesan shared a task for me last week so I can understand the Organization model a bit more <https://github.com/Rashmi-K-A/gsoc/issues/1>. I worked on this one and it really did help a lot! I couldnt get much done last week - I was out of commission for most of the week because I got my vaccine shot on Tuesday
+19:06:57 - Rashmi K A: The coding period starts today but I think we might have to spend a bit more time on design since we still have to evaluate how to store the Organization data.
+19:07:08 - Rashmi K A: <https://github.com/chaoss/grimoirelab-sortinghat/issues/541>
+19:07:21 - Rashmi K A: Only the first part of this issue is done
+19:07:31 - Rashmi K A: That's about all the updates I have
+19:08:40 - Santiago Dueñas: Ok, so, do you have any thoughts about the second topic?
+19:10:09 - Rashmi K A: Yes, I really do think I need to get a bit more clarity on what kind of data we want to store. I think we never got around to discussing that last time
+19:11:35 - Santiago Dueñas: Well, first of all we want to store a hyerarchy of groups/departments/sections/etc within an organization
+19:11:48 - Santiago Dueñas: Also, organizations can have divisions
+19:12:21 - Santiago Dueñas: For example, IMB might have IBM Spain &amp; Portugal, IBM Middle East
+19:13:31 - Santiago Dueñas: so we need a model to map this situations. Probably the same entities can store all this information. We don't need to differentiate between groups or divisions. We can consider they are the same and depending on the user, the meaning will change.
+19:14:05 - Santiago Dueñas: That's one thing we want to map.
+19:14:14 - Santiago Dueñas: The other is to have aliases of organizations
+19:16:01 - Santiago Dueñas: Regarding the hierarchies, a group can be composed by 0 to N subgroups, and there's no depth limit
+19:17:45 - Rashmi K A: got it, makes sense. I assumed there really was no depth limit as well which was why my proposal suggested a tree storage mechanism
+19:18:37 - Rashmi K A: I know @mafesan mentioned we wanted to evaluate other options - what other options are we thinking? Do you have any others in mind?
+19:20:56 - mafesan: Oh, sorry if I wasn't clear enough :sweat_smile:
+What I meant is, after understanding the model and using the tool, we could discuss any other idea you may have during the process
+19:21:26 - Rashmi K A: Oh, oops! I misunderstood
+19:21:28 - Rashmi K A: Thanks for the clarification
+19:22:57 - Rashmi K A: Ok, if there was a depth limit of 1 or 2, I think I could have come up with something else...but considering that we want the users to basically manage the entire hierarchy and not have any restrictions on how much they can drill in, I would say tree is my best bet.
+19:22:59 - Rashmi K A: Any thoughts on this?
+19:25:01 - Santiago Dueñas: I think I tree should be ok.
+19:25:11 - Santiago Dueñas: The main problem is the solution to implement it.
+19:26:46 - Rashmi K A: yeah, there arent a lot of libraries available to manage trees in databases. I am hesitant to implement from scratch as well.
+19:27:53 - Santiago Dueñas: If you don't like the libraries for django, you can implement what we need first and later we can think if that requires a library or not.
+19:28:24 - Santiago Dueñas: Time is limited and there's a lot of work to do. The most complicated part will be how to show all this information in the UI.
+19:29:17 - Rashmi K A: I dont mind implementing the tree structure myself but wouldnt it be better to reuse an efficient implementation?
+19:30:51 - Rashmi K A: The library I put down in my proposal is the most common across developers for storing trees. Are we considering using that as a possible option?
+19:32:00 - Rashmi K A: I tried modifying our model to fit into a tree structure using that library as a POC before proposal. The details in the proposal show the changes to the Organization table and the code w.r.t that POC I did
+19:32:03 - Santiago Dueñas: I've never used that library before but it might be a good idea to use it.
+19:32:51 - Santiago Dueñas: I think there were some problems with your proposal and how that was going to be implemented. I can't recall now. Maybe @mafesan remembers it.
+19:34:00 - mafesan: :thinking_face:
+19:35:10 - mafesan: I think it had to do with how this new objects and hierarchies are integrated with the current GraphQL object model (based on Django models)
+19:35:36 - Rashmi K A: <https://docs.google.com/document/d/1oUd-G-N4VXh77FRI4PTSWJHoVxGt2WZDNu7JwuFMbW4/edit#heading=h.wmn6sae5a2df> In case you guys need to take a look :slightly_smiling_face:
+19:36:25 - Santiago Dueñas: My thoughts were that we might want to have organizations as they are
+19:36:51 - Santiago Dueñas: and then have other entities that store the information about these groups or departments
+19:37:04 - Rashmi K A: and create a new model for groups?
+19:37:08 - Santiago Dueñas: yes
+19:37:09 - Rashmi K A: yep, I thought about that
+19:38:11 - Rashmi K A: I was fluctuating between this idea and my current proposal initially, I think this might work too, especially if you want to leave the current model untouched
+19:38:58 - Rashmi K A: Lesser chance of breaking existing code :slightly_smiling_face:
+19:40:16 - Santiago Dueñas: Probably. Also, having different entities, we have the concept that they aren't organizations. They are a totally different thing.
+19:41:16 - Santiago Dueñas: My main concern with this idea is that in the end, it will be very similar to organizations/enrollments. Maybe same kind of basic functions.
+19:41:56 - Santiago Dueñas: But in the other hand, we avoid the problem of several enrollments for the same organization and groups
+19:43:19 - Rashmi K A: Another thing I like is that with having groups as a separate entity, you can clearly segregate fields that might be just needed for top level. For example, you might need alias or another property for just the top level org, with my way you will have those fields created for every node.
+19:44:08 - Rashmi K A: thats not really necessary, we dont need aliases all the way down in particular teams.
+19:44:30 - Rashmi K A: With your way, we could just have alias on the Organization model so we know its only for the top level org itself
+19:45:39 - Rashmi K A: Regarding this, there might be some code thats duplicated but I guess its a trade-off
+19:46:33 - Santiago Dueñas: yes, that makes sense
+19:47:55 - Rashmi K A: Any other thoughts on this one?
+19:48:36 - Rashmi K A: If not, I will come back to y'all with a modified document on approach by mid week
+19:50:46 - Santiago Dueñas: Not really. Try to write a description with a new approach and we can discuss about it. Please open a ticket in your repository, so we can talk about it there.
+19:51:05 - Rashmi K A: Sure, I'll do that
+19:51:20 - Rashmi K A: I dont have anything else on the agenda for today
+19:51:40 - Rashmi K A: @vchrombie Is there anything you want to discuss?
+19:53:13 - vchrombie: that's great, you can share the doc whenever you are ready with it
+19:54:35 - vchrombie: as discussed earlier, you can start documenting your weekly or biweekly progress from now so that it would be helpful in writing the final report
+19:55:10 - vchrombie: other than that, I think I don't have anything to discuss
+19:55:14 - vchrombie: @Santiago Dueñas @mafesan @Eva Millán
+you want to add anything more?
+19:55:31 - Santiago Dueñas: Not really
+19:55:37 - mafesan: Not from my side!
+19:55:42 - Eva Millán: no
+19:56:00 - Rashmi K A: Ok, sure ! I'll also send out an email to block your calendars for monday this time. As we progress it might be harder to remember this weekly sync
+19:56:25 - vchrombie: Ok, I think we can close the meeting today (nice, we are 5 min early today :smile:)
+19:56:47 - Rashmi K A: yep!! Thanks everyone :smile:
+19:57:34 - vchrombie: Thanks all for attending the meeting, see you on the issues and meet you on the next Monday :wave:
+19:57:44 - mafesan: Thank you! Have a nice week, see you around :smile:
+19:57:50 - Eva Millán: thank you!
+19:59:53 - Santiago Dueñas: bye!
