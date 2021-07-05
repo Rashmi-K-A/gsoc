@@ -1,0 +1,141 @@
+Channel name: grimoirelab-gsoc
+Participants: sduenas, Rashmi K A, mafesan, vchrombie, Eva Millán, Slackbot
+________________________________________________________________________________________________
+19:00:02 - Slackbot: Reminder: start weekly standup.
+19:00:42 - Rashmi K A: hello everyone :slightly_smiling_face:
+19:01:10 - vchrombie: Hello Rashmi, how are you doing?
+19:01:20 - Eva Millán: hi everyone!
+19:01:41 - Rashmi K A: am good, how are you all?
+19:02:08 - Rashmi K A: am super excited this week because I actually started coding some parts of the project :exclamation:
+19:03:21 - vchrombie: That's great news!
+19:03:40 - vchrombie: let me see if santi and mafesan are joining today
+19:03:56 - vchrombie: we can start the meeting in 5 minutes
+19:04:01 - Rashmi K A: sure!
+19:04:19 - mafesan: Hi everyone!
+19:04:32 - mafesan: Sorry for the delay
+19:05:23 - vchrombie: no problem @mafesan
+you are almost on the right time
+19:08:09 - vchrombie: I think Santi is not around, maybe we can start the meeting
+We can share the logs later for him to read.
+19:08:11 - vchrombie: WDYT?
+19:08:38 - mafesan: Yes, I think we can start
+19:08:43 - Rashmi K A: works for me
+19:09:10 - Rashmi K A: Shall I start with my update?
+19:09:30 - mafesan: Yes, please!
+19:10:39 - Rashmi K A: Over the last one week, I have been working on <https://github.com/chaoss/grimoirelab-sortinghat/issues/548>. We finalized how to handle Organizational hierarchies last Monday so I have started the implementation. This issue is to add a Group model and add internal methods in db.py and api.py.
+19:11:14 - Rashmi K A: I have been able to make good headway on this one, am working on the tests, I am planning to raise a PR by midweek!
+19:11:40 - Rashmi K A: I do have a couple of questions on this one though
+19:12:18 - Rashmi K A: The first is around the table name. In our code, I see that the table name is the same as the Model name for most of the models, except a few models that hold relations like domains_organizations and so on
+19:12:50 - Rashmi K A: `Group` is our new model but we cannot create a table called group, for its a keyword in sql. I have named it `orggroups` for now
+19:12:54 - Rashmi K A: any thoughts on this?
+19:13:03 - mafesan: :thinking_face:
+19:13:51 - mafesan: Have you tried doing so by creating the model from Django and then creating a migration?
+19:15:01 - Rashmi K A: ah! I forgot to mention clearly - to be more clear, I could create a table called group/groups via our code. But if for any reason you want to access your mysql directly and run queries on the table, mysql's cli errors out
+19:15:37 - Rashmi K A: I was trying to run `select * from groups` to check if a new group was inserted in my local mysql, but it kept erroring out
+19:16:44 - mafesan: I think you can overcome that by using `[]`
+19:16:54 - mafesan: like:
+```select * from [groups]```
+19:17:46 - Rashmi K A: oh! I did not realize that :woman-facepalming: sorry! I'll check this out^ and name the table `groups`
+19:18:24 - Rashmi K A: it didnt cross my mind to even google it :neutral_face:
+19:19:18 - mafesan: if that doesn't work, I would try surrounding `groups` using `'groups'`, `"groups"` or ``groups``
+19:20:06 - mafesan: No worries! I remember to find a similar problem with a keyword and it was a headache :sweat_smile:
+19:20:27 - Rashmi K A: alright!! I'll try that!
+19:20:57 - Rashmi K A: Also, I went over the contributing guidelines for CHAOSS in general but is there anything specific you want me to do when I raise a PR for muggle branch in sortinghat?
+19:21:38 - vchrombie: there is the sign-off you need to check
+19:21:57 - vchrombie: you need to simply add `-s`  during committing
+19:21:59 - mafesan: I would say the most important guidelines are:
+• To sign the commit (`git commit -s`)
+• To provide a meaningful commit message (check the link I posted some weeks ago)
+19:22:57 - mafesan: Here is the link, just in case: <https://chris.beams.io/posts/git-commit/>
+19:23:13 - Rashmi K A: gotcha! I went over that article, it was really helpful :slightly_smiling_face:
+19:23:26 - mafesan: ok, great!
+19:24:46 - Rashmi K A: I do have a question on the next steps - Once these internal methods to handle Groups data are in place, should I start with adding methods for Groups to the GraphQL layer or to the sortinghat-cli
+19:25:33 - Rashmi K A: In my proposal, I had put GraphQL first but I wanted to check with you first.
+19:25:59 - mafesan: I would say you should go for the GraphQL methods (mutations and queries) first
+19:26:32 - mafesan: Yes, I think that makes sense, but maybe I am missing something (please @sduenas, correct me if i'm wrong here)
+19:28:12 - Rashmi K A: alright, I ll start with a mutation for adding and a query for finding, does that work?
+19:28:47 - Rashmi K A: I think we ll need graphQL anyway for the UI changes so might as well start with that
+19:28:53 - vchrombie: +1 to @mafesan point and I think Santi is not here, so maybe we can confirm it once again on the issue through a comment
+19:29:56 - Rashmi K A: sure, right after I put in a PR, I ll add that comment as well. Depending on whichever one we plan on starting with, I will create a new issue to track the task
+19:31:01 - Rashmi K A: I dont think I have anything else from my side
+19:31:48 - Rashmi K A: oh one last thing
+19:32:00 - Rashmi K A: I dont have access to the repo so I am not able to assign the issues to myself
+19:33:03 - mafesan: Sorry, I don't know what repo you are talking about :sweat_smile:
+19:33:15 - Rashmi K A: sortinghat -*<https://github.com/chaoss/grimoirelab-sortinghat/issues/548| Create a Groups model to handle organizational hierarchies>*
+19:34:22 - mafesan: oh, I didn't know you needed access to assign yourself an issue :thinking_face:
+19:34:48 - mafesan: I can assign you to that issue if you want
+19:35:33 - Rashmi K A: yeah, it doesnt show any gear icon or anything to add myself
+19:35:33 - Rashmi K A: yes please :slightly_smiling_face:
+19:35:55 - Rashmi K A: got it! thank you :slightly_smiling_face:
+19:37:07 - vchrombie: I want to add a point to this
+19:38:03 - vchrombie: You might need to add a changelog entry along with the PR
+19:38:52 - vchrombie: You can check <https://github.com/Bitergia/release-tools|Bitergia/release-tools>
+19:40:01 - vchrombie: We decided to make it mandatory as we are going to use release-tools for generating releases
+19:40:22 - Rashmi K A: I ll check that, although I dont remember seeing a CHANGELOG.md for the repo
+19:40:29 - Rashmi K A: might have missed it
+19:40:48 - vchrombie: for sortinghat, we would start once there is a public release (this should be soon, maybe this week I'm not sure)
+19:41:31 - mafesan: Oh, right! Thank you for that point @vchrombie
+19:42:07 - Rashmi K A: so, if my first PR is before that, I can skip it for this time?
+19:42:27 - vchrombie: I'm not sure, they might be reviewed now but merged later :smile:
+19:43:02 - vchrombie: I mean, merged after the public release
+19:44:12 - vchrombie: I want to hear Santi's opinion on this
+since we are adding an additional functionality to sortinghat, I think it is a great way to start using release notes
+19:44:45 - Rashmi K A: ah, I ll wait on this one then. I can check out the link meanwhile just to know what needs to be done
+19:45:27 - Rashmi K A: or I can ping here when am ready to make a PR if you want me to add change notes
+19:45:59 - vchrombie: You need to <https://github.com/Bitergia/release-tools#installation|install> the tool and use the <https://github.com/Bitergia/release-tools#changelog|changelog> script to create a changelog entry
+19:46:39 - Rashmi K A: alright, I ll check that
+19:46:59 - vchrombie: You can know more about it from here
+<https://github.com/chaoss/grimoirelab-perceval/blob/master/CONTRIBUTING.md>
+19:48:27 - vchrombie: Please let us know if you have any doubts regarding release-tools and changelog entries
+19:48:56 - Rashmi K A: I ll maybe go through it and check back with you
+19:49:10 - Rashmi K A: a totally unrelated question but are you guys planning to make this changelog script into a pre-PR hook so its mandatory for every PR
+19:49:40 - vchrombie: umm, sounds good but it is not mandatory to all the PRs
+19:49:55 - Rashmi K A: ah!!
+19:50:24 - vchrombie: so I think it might not be a good idea
+19:50:29 - vchrombie: ```What warrants a changelog entry
+
+Changelog entries are required for:
+
+    Code changes that directly affects the GrimoireLab users.
+    Bug fixes.
+    New updates.
+    Performance improvements.
+
+Changelog entries are not required for
+
+    Docs-only (e.g., README.md) changes.
+    Developer-facing change (e.g., test suite changes).
+    Code refactoring.```
+19:52:20 - Rashmi K A: hmm, just asking because we had a similar scenario at Intuit where our changelog script triggered everytime our PR contained `feat`: `fix`: and not `docs` or `tests`
+19:52:48 - Rashmi K A: but I dont know how we raise PRs here, just thought I ll point it out :slightly_smiling_face:
+19:53:53 - vchrombie: also, I have one last thing
+19:54:21 - vchrombie: @Rashmi K A did you get time to write a blog post since it is almost close to 2 weeks?
+19:54:35 - sduenas: Hi, sorry for being late. It'll be great if we start writting changelog entries when need it
+19:54:36 - vchrombie: I think we have decided to have a bi-weekly post right
+19:54:54 - Rashmi K A: YES! I have a draft on medium about looking at how to store hierarchical data
+19:55:12 - Rashmi K A: I completely forgot to mention that, good thing you asked
+19:55:42 - Rashmi K A: do you guys have a place you typically want to post articles in or is medium ok?
+19:57:14 - vchrombie: No problem Santi :smile:
+Yes, we can have changelog entries from now. Thanks for replying.
+19:57:52 - vchrombie: I think medium is fine :ok_hand:
+19:58:07 - Rashmi K A: gotcha, I ll post and share :party_face:
+19:58:42 - vchrombie: please share the link in the mailing list as well so that the community members can have a look at it
+19:58:58 - Rashmi K A: sure :slightly_smiling_face:
+19:59:55 - vchrombie: I don't have anything to discuss about, and also it is close to the end time
+20:00:04 - Rashmi K A: am good too :slightly_smiling_face:
+20:00:20 - vchrombie: Do you have anything more to discuss?
+@sduenas @mafesan @Eva Millán
+20:00:27 - vchrombie: else we can close the meeting for today
+20:00:59 - mafesan: Not from my side!
+20:01:13 - Eva Millán: not from my side either
+20:02:36 - sduenas: Just one comment, don't use `groups` or `group` as the name of the table. Even if it's possible to run queries using that syntax, it's better if we don't do it because it's something people will forget and the queries will fail, at least at first.
+20:03:07 - Rashmi K A: ah :thinking_face:
+20:03:14 - Rashmi K A: `orggroups`?
+20:03:54 - sduenas: org_groups better
+20:06:04 - Rashmi K A: okay :slightly_smiling_face:
+20:06:10 - Rashmi K A: I ll do that
+20:06:44 - Rashmi K A: sorry for the delay in replying, my internet seems to not like me
+20:07:59 - vchrombie: alright then
+@sduenas do you think we can close the meeting for today?
+20:08:07 - sduenas: sure, let's close it!
+20:08:31 - vchrombie: thanks everyone for attending, see you again next week! :wave:

@@ -1,0 +1,124 @@
+Channel name: grimoirelab-gsoc
+Participants: sduenas, Rashmi K A, mafesan, vchrombie, Eva Millán, Slackbot
+________________________________________________________________________________________________
+19:00:11 - Rashmi K A: Hello hello :wave: !
+19:00:21 - Slackbot: Reminder: start weekly standup.
+19:00:27 - mafesan: Hi there! :wave:
+19:01:00 - Rashmi K A: Hi!! Let me ping venu and ask if he is joining
+19:02:24 - vchrombie: Hello Everyone :wave:
+19:03:32 - vchrombie: @mafesan do you know if Eva and Santi are around?
+19:04:25 - mafesan: No idea, let me ping them
+19:05:00 - vchrombie: that's fine, they should be joining soon I guess
+maybe we can start
+19:05:24 - vchrombie: WDYT @Rashmi K A ?
+19:05:56 - Rashmi K A: yes am good to start
+19:06:00 - Eva Millán: hi everyone!
+19:06:26 - Rashmi K A: let me start with my updates
+19:06:34 - sduenas: hi!
+19:07:09 - Rashmi K A: I put up my biweekly post at <#CV03ATA05|general>
+19:08:07 - Rashmi K A: I also raised my first PR :bangbang:
+19:08:35 - Rashmi K A: Its here -&gt; <https://github.com/chaoss/grimoirelab-sortinghat/pull/552>. I think @sduenas suggested some changes, am working on them
+19:08:45 - Rashmi K A: I had a question about this PR though
+19:09:11 - sduenas: shoot!
+19:09:14 - Rashmi K A: Santiago - you mentioned that the merge commit is not needed, how do I fix that?
+19:09:27 - Rashmi K A: I think I have a few commits after that
+19:09:55 - sduenas: you merged the changes you had
+19:10:06 - sduenas: what you need to do is a git rebase -i instead
+19:10:19 - sduenas: and select the commits you want to be part of your PR
+19:10:33 - sduenas: you can look for more information about git rebase on the internet
+19:10:43 - sduenas: maybe Venu can help you if you need it
+19:10:46 - vchrombie: yup, rebase should solve the issue
+19:10:53 - Rashmi K A: gotcha, but then the pr says merge conflicts are present
+19:11:19 - Rashmi K A: I am ok with rebasing, shouldnt be any trouble. I think am a bit confused because it says this PR cannot be automatically merged
+19:11:21 - sduenas: then you need to fix the conflicts
+19:11:57 - vchrombie: first we need to rebase the commits
+and then fix the merge conflicts manually
+19:12:04 - sduenas: normally they are because you touched a file that it's already modified on muggle
+19:12:07 - Rashmi K A: OH! Gotcha
+19:13:55 - Rashmi K A: Also
+19:15:12 - Rashmi K A: Shall I rename group to team in models.py
+19:15:17 - Rashmi K A: And call the table teams?
+19:15:22 - Rashmi K A: shall I rename Group -&gt; Team in models?
+19:15:23 - Rashmi K A: And have the table name as `teams`?
+19:15:26 - Rashmi K A: I haven't made that change yet because I wanted to confirm
+19:15:32 - sduenas: yes, let's do that
+19:15:32 - Rashmi K A: Oops, double send
+19:15:55 - Rashmi K A: Great, is everything else ok in the PR
+19:16:29 - Rashmi K A: I also wanted to check with you how you generally lint files
+19:17:04 - Rashmi K A: Or is it a IDE config for style formats that you have in place?
+19:17:42 - sduenas: I'm afraid I need to go for a bit, maybe @vchrombie and @mafesan can help you with that
+19:18:03 - Rashmi K A: Sure, I don't have anything big for today's agenda
+19:18:08 - Rashmi K A: See ya!
+19:18:36 - Rashmi K A: @vchrombie / @mafesan  any thoughts on this^?
+19:19:06 - mafesan: Sure! Thank you @sduenas!
+19:19:19 - mafesan: Well, I'm using PyCharm
+19:19:56 - mafesan: and I run `flake8`  to check the style warnings
+19:20:27 - mafesan: Is that what you were asking about @Rashmi K A?
+19:20:41 - Rashmi K A: ah!! ok, my PyCharm puts out these squiggly yellow lines everytime it has a style suggestion but its very easy to miss
+19:20:46 - Rashmi K A: yes thats what I was asking about!
+19:21:24 - mafesan: I don't know which operating system you are using, but I recommend you to try `flake8`
+19:21:49 - vchrombie: if you have installed sortinghat (muggle) using poetry
+19:22:02 - vchrombie: `flake8` should be already installed
+19:22:22 - Rashmi K A: poetry run flake8
+19:22:26 - Rashmi K A: ?
+19:22:37 - vchrombie: yup, you can run it using that command
+19:23:34 - vchrombie: we added `flake8` step in the CI too
+even if you miss, it will be caught here :smile:
+<https://github.com/chaoss/grimoirelab-sortinghat/blob/muggle/.github/workflows/tests.yml#L54>
+19:24:07 - mafesan: I run it from the terminal, like:
+`$ flake8 &lt;directory&gt;`
+For instance, from `grimoirelab-sortinghat` folder, I execute:
+```$ flake8 .```
+One example of the output:
+```./config/settings/devel.py:87:1: E265 block comment should start with '# '
+./config/settings/devel.py:108:1: W391 blank line at end of file```
+19:24:43 - mafesan: `87:1`  references the line number and the column number, respectively
+19:24:51 - Rashmi K A: thank you!!! This helps
+19:25:10 - Rashmi K A: I think I had a loot of styling issues in the first PR and Santiago had to check through the files
+19:25:41 - vchrombie: we have some flake8 configurations also
+<https://github.com/chaoss/grimoirelab-sortinghat/blob/muggle/setup.cfg>
+they will be automatically applied within the repo, so you need not worry about it
+19:26:47 - Rashmi K A: ok :+1:  got it
+19:27:04 - mafesan: Yup, thank you @vchrombie!
+@Rashmi K A, this configuration allow us to ignore some files and folders (I think we can ignore some warnings too)
+19:27:18 - Rashmi K A: I ll take a look at this
+19:27:30 - Rashmi K A: Hopefully, my next PR isn't dreadful
+19:28:41 - mafesan: Keep it up! I saw the PR and I think you made a big progress :rocket:
+19:30:17 - Rashmi K A: Another thing I wanted to discuss was timelines - I think we spent some additional time discussing implementation details and I am trying to match the initial proposal timeline but we are lagging behind by a week. I should have started with GraphQL implementations now. Any thoughts on this?
+19:30:27 - mafesan: About the conflicts merging and rebasing the changes... have patience and first back-up all the files you have modified if you are not sure about the changes Git is applying
+19:31:02 - Rashmi K A: Sure, I'll try that. Working with Git has been an ongoing process of learning new things
+19:33:54 - vchrombie: rebasing, merge conflicts; all these seem to be nightmares until you solve them once
+so you need not worry about it
+19:34:42 - Rashmi K A: gotcha :slightly_smiling_face: Thanks!
+19:34:49 - Rashmi K A: Any thoughts on this?
+19:37:15 - mafesan: @Rashmi K A I think you made an initial timeline proposal including a period for developing the tests, but we commented that tests should be integrated with each change
+19:37:31 - Rashmi K A: yeah
+19:38:06 - mafesan: I don't remember if you adapted that timeline after our conversation, but I think that period could be distributed among all the features you develop
+19:39:03 - mafesan: Also, there are some issues you are having (like style comments and Git conflicts) that once you solve them once, it will be way more easier and faster to solve for the next features
+19:39:58 - Rashmi K A: yeah, thats true.
+19:40:25 - Rashmi K A: I ll edit the timelines in that doc, to incorporate the tests
+19:41:33 - Rashmi K A: With this change, I will have to rename all the methods and model instances we currently have from using the word 'group' to 'team'. Once I am done with that, can I reach out to one of you to help me do the rebasing and merging?
+19:43:42 - vchrombie: Yes, I can help you with it. Please let me know when you are done.
+19:44:54 - Rashmi K A: sure :slightly_smiling_face:
+19:44:55 - Rashmi K A: thank you!
+19:45:03 - Rashmi K A: I dont have anything else for today
+19:46:05 - vchrombie: Thanks @Rashmi K A
+19:46:54 - vchrombie: I too don't have anything more to discuss
+19:47:21 - vchrombie: @mafesan @Eva Millán if you can confirm, we can close the meeting early today
+WDYT?
+19:48:05 - mafesan: I don't have anything else to discuss either!
+19:48:47 - Eva Millán: yes, I think we can end the meeting
+19:49:07 - Rashmi K A: thank you everyone :slightly_smiling_face: see you next weekK!
+19:49:35 - vchrombie: See you all next week, bye! :wave:
+19:49:38 - mafesan: Thank you all! Have a nice week!
+19:53:43 - sduenas: see you! sorry I had to leave
+20:24:14 - Rashmi K A: <!here>  Quick question:  We have a unique constraint set up such that
+```unique_together=(name,organization,)```
+for Teams model. In the code for adding Teams, we need to make sure that we allow teams that aren't linked to any organizations to be added as well. This means that those team objects have organization=NULL.
+
+When I create two teams with same name and organization=NULL however, it doesnt raise any error. I have added a `validate_unique` function that checks whether another object with same name and org=NULL exists and raise a ValidationError if so, but I wanted to check if you guys have a better idea on how to handle this?  Heres the discussion thread: <https://github.com/chaoss/grimoirelab-sortinghat/pull/552#discussion_r660380663>
+20:51:58 - sduenas: that's something related with sql / mariadb but I don't know if it's fixed yet or not
+20:52:57 - sduenas: if you can do some research, that will be very nice
+22:43:00 - Rashmi K A: got it, I just wanted to check with y'all if you had any suggestions from your experience before researching
+22:43:56 - Rashmi K A: I am also midway through the graphql layer coding. Shall I raise a different PR for that and research this on the side? I dont want the PR opening/closing to be sequential for the fear of lagging behind.
+11:53:48 - sduenas: you can upload a different PR if you want

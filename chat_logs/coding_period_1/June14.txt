@@ -1,0 +1,97 @@
+Channel name: grimoirelab-gsoc
+Participants: sduenas, Rashmi K A, mafesan, vchrombie, Eva Millán, Slackbot
+________________________________________________________________________________________________
+19:00:03 - Slackbot: Reminder: start weekly standup.
+19:00:47 - Rashmi K A: Hi everyone :slightly_smiling_face:
+19:03:32 - vchrombie: Hi Rashmi
+How are you doing?
+19:04:23 - Rashmi K A: am good! slowly trying to navigate visa appointments and packing for CMU :slightly_smiling_face: how are you
+19:05:22 - vchrombie: That's great to the hear, hope the process is going smooth.
+I'm good too. Thanks.
+19:06:06 - Rashmi K A: Shall we get started or should we wait for the others?
+19:06:40 - vchrombie: Maybe we can wait for 5 min to see if Eva and Santi are joining.
+19:07:26 - Rashmi K A: sure :slightly_smiling_face:
+19:07:43 - vchrombie: btw mafesan might not be joining today as he has a conflicting meeting in the schedule
+19:08:08 - Rashmi K A: oh cool!
+19:08:40 - Rashmi K A: Maybe let me post updates that I have until Eva and/or Santiago join
+19:09:39 - vchrombie: Okay, sounds great! Please start by giving your updates.
+19:10:28 - Rashmi K A: Me and Santiago have been discussing the next steps over the last one week on this thread - <https://github.com/chaoss/grimoirelab-sortinghat/issues/541>.
+19:10:55 - sduenas: Hi! Sorry for being late.
+19:11:15 - Rashmi K A: -&gt; We still have a couple of design decisions to make but we fixed on having a separate Model called `Group` and putting all the subgroups/divisions/departments of an organization in there.
+-&gt; We need to (hopefully) finalize the remaining stuff by this week so I can put. in around 6 weeks of coding
+19:14:11 - Rashmi K A: We came up with two ways of holding the data:
+-&gt; Either have a foreign key in the `Organization` model that points to a single root representing the organization itself in the `Group` table and we can traverse its heirarchy from there
+-&gt; Or we have an `org_id` key for all `Group` records in the table and filter by org and not store the organization itself as the root
+
+We also decided that its better to not always mandate that _groups need to belong to organizations._
+19:14:47 - sduenas: So, one of the open questions was if groups are linked to organizations or not. I would say no. They don't have to. Having that in mind, we need a root group to gather all its subgroups. This root group can be linked to an organization or not.
+19:16:40 - Rashmi K A: Right makes sense, so all groups of a logical organisation (it doesnt have to actually be an organization) will fall under a single root, yes?
+19:17:12 - Rashmi K A: and how do we plan to link the organization and the group data
+19:17:52 - Rashmi K A: At this point, I think either way works - I think you mentioned there arent going to be tons of deep trees in the groups table so am not too worried about performance.
+19:18:11 - sduenas: either with an extra table, organization - group or with a organization_id set to a given value in the groups/subgroups
+19:18:51 - Rashmi K A: Hmm, extra table is an option I didnt think of :thinking_face:
+19:19:29 - Rashmi K A: do you see any benefit from having an extra table that we wouldnt get with org_id
+19:19:33 - sduenas: extra tables are usually used when you have m:n relationships
+19:19:59 - sduenas: which is an organization can have multiple groups or the same group can be in multiple organizations
+19:19:59 - Rashmi K A: yeah...but we wouldnt have m:n right? its 1 org with multiple children...
+19:20:08 - sduenas: but probably this is not the case
+19:20:40 - sduenas: I was thinking of having this table to avoid to have empty fields org_id on the groups entries
+19:20:54 - sduenas: but maybe we don't mind
+19:21:45 - Rashmi K A: do you really think this empty org_id is going to be a common thing?
+19:22:13 - sduenas: probably not
+19:22:18 - Rashmi K A: I have no experience with the nature of organizations you deal with generally but I am thinking if its not quite often, a null value here and there should be ok
+19:22:28 - sduenas: Most of the times will be linked to one organization
+19:22:54 - sduenas: and I expected that there will be only one set of groups
+19:23:12 - sduenas: because people that use this progably will map their internal organization into groups
+19:23:37 - sduenas: but not others because they won't know what groups or departments other organizations have
+19:24:09 - Rashmi K A: hmm
+19:25:27 - sduenas: that's why I think that using MTTP for mapping the groups would be too much
+19:26:07 - Rashmi K A: you mean using an external library ? or using that specific implementation of storign  heirarchical data?
+19:26:46 - sduenas: using that specific implementation of paths like 1.2.x
+19:26:47 - sduenas: etc
+19:26:58 - sduenas: because the trees aren't going to be that deep
+19:27:10 - Rashmi K A: right using MPTT... got it
+19:27:28 - sduenas: yeah, sorry, MPTT
+19:27:58 - sduenas: in any case, if you think it's useful, we can use it
+19:28:00 - Rashmi K A: maybe adjacency lists will work - they require self joins so if we want to reach a node at depth 3 we need to do 2 self joins.
+19:28:45 - Rashmi K A: no you are right, we can always change the implementation based on your req but I was only suggesting we use an external library whichever way we implement it because I had a feeling their implementations would be more effective
+19:29:16 - sduenas: we don't really need to do it everything with just a query, we can do multiple or recursive calls
+19:30:46 - sduenas: that's slower but it doesn't require much logic
+19:31:17 - Rashmi K A: should we perhaps look at adjacency lists then? If the implementations are simple enough, we might not even need the django-treebeard library for it, we could implement it ourselves
+19:32:04 - Rashmi K A: but erring on the side of caution - it would rapidly degrade to bad perf if we start having trees with depth&gt;5
+19:32:34 - sduenas: I see
+19:34:33 - Rashmi K A: just to remind everyone about the implementations because I cant immediately find my proposal to link it here: there are three ways to implement trees - Adjacency lists(faster write, slower read) , Nested sets(faster read, slower write), MPTT(optimal in both).
+19:34:54 - sduenas: hmmm
+19:34:59 - Rashmi K A: all of these three ways are provided by the django treebeard library
+19:35:14 - sduenas: I was thinking that maybe we should try MPTT, they can be useful for other things
+19:35:54 - sduenas: ok, lets go with MPTT
+19:36:27 - sduenas: if we have to change something
+19:36:34 - sduenas: probably it will be easey
+19:36:38 - sduenas: easy*
+19:37:11 - Rashmi K A: yeah, thats true.
+19:37:20 - Rashmi K A: switching between them is easy since same library
+19:37:54 - sduenas: ok, so let's do that
+19:37:57 - sduenas: good
+19:39:27 - Rashmi K A: ok, so far:
+1. we are going with MPTT using django-treebeard
+2. we are going with having org_ids which allows NULL values to accomodate groups that might not belong to any orgs
+19:41:36 - Rashmi K A: Also, all groups for a logical org will club under one root node as per this.
+19:43:01 - sduenas: Right. Maybe you can write all of these in the ticket, and start implementing it
+19:43:07 - Rashmi K A: for regular organizations, we leave the organization model as it is and create groups that have org_id set to the parent organization. The first level of  groups in the org will all have parent=NULL in the table and thats how we would identify where to start traversing
+19:43:19 - Rashmi K A: yep! I ll do that, I just want to make sure we got everything
+19:43:41 - sduenas: perfect
+19:43:42 - Rashmi K A: in terms of organization aliases, will we can circle back to that once this is done?
+19:46:18 - sduenas: yes, let's talk about it when we have this part implemented
+19:47:01 - Rashmi K A: sure, I ll update the ticket and the proposal timelines as well
+19:47:31 - Rashmi K A: Once all of you review that, I will create a new ticket to start implementation
+19:48:26 - Rashmi K A: @vchrombie any thoughts?
+19:49:04 - vchrombie: Sounds good to me. :slightly_smiling_face::+1:
+19:49:56 - Rashmi K A: great!
+19:50:18 - Rashmi K A: I dont have anything else for today, do you guys have anything else to discuss?
+19:50:41 - vchrombie: Nothing from my side.
+19:51:47 - sduenas: nothing here either
+19:51:55 - Rashmi K A: okay :smile: I'll see y'all next week then!! Thank you!!
+19:52:22 - vchrombie: alright, thanks everyone for attending :wave:
+see you next week
+19:52:33 - Eva Millán: see you!
+19:54:07 - sduenas: bye!
